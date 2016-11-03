@@ -18,7 +18,7 @@ post <- PostSurvey
 
 # Analysis
 
-# Letfs break this question down into the different statistics that you will need to construct your answer.  Be 
+# LetÂfs break this question down into the different statistics that you will need to construct your answer.  Be 
 # sure that your R output includes all of the following components. 
 # For each hypothesis test, 
 # 1. Create vectors of the scores that you wish to analyze.
@@ -30,16 +30,39 @@ dat <- post %>%
 
 Non_greek <- filter(dat,greek=='no') 
 Greek <- filter(dat,greek=='yes')
-# 2. Check the assumption of normality by generating a histogram for each variable of interest. 
+
+#OR 
+#you can simply use following code to create vectors of interest
+
+homeworkhighschool<- post$hw_hours_HS
+homeworkcollege<-post$hw_hours_college
+
+
+# 2. Check the assumption of normality by generating a histogram for each variable of interest.
 hist(data[,1], xlab="Study hours", main="Time students spent on homework in high school by hours")
 hist(data[,2], xlab="Study hours", main="Time students spent on homework in college by hours")
 hist(data[,3], xlab="Study hours", main="Difference in study hours")
 hist(Greek$sleep_Sat,main="Sleep hours on Saturday of Greek students")
 hist(Non_greek$sleep_Sat,main="Sleep hours on Saturday of Non-greek students")
+
+#OR
+hist(homeworkhighschool)
+hist(post$hw_hours_college)
+
 # 3. Find the t-statistic and p-value.
 
 t.test(data[,1],data[,2],paired=T,alternative='less')
 t.test(Greek[,1],Non_greek[,1],alternative='less')
+
+#OR 
+
+t.test(homeworkhighschool, homeworkcollege , paired = T)
+
+#for the classification of greek or non greek you can use the following code as well:
+
+Greeke<-post$sleep_Sat[post$greek=='yes']
+nogreeke<-post$sleep_Sat[post$greek=='no']
+
 # 4. Interpret the results of each test. 
 
 
